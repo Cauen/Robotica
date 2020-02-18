@@ -1,26 +1,55 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from 'react';
+import './App.scss';
+import { Provider } from 'react-redux';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-function App() {
+import { NotificationContainer } from 'react-notifications';
+import Routes from './routes/index';
+import store from './store';
+import configs from './configs';
+import 'react-notifications/lib/notifications.css';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      // light: will be calculated from palette.primary.main,
+      main: configs.primaryColor,
+      // dark: will be calculated from palette.primary.main,
+      // contrastText: will be calculated to contrast with palette.primary.main
+    },
+    secondary: {
+      light: configs.secundaryColor,
+      main: configs.secundaryColor,
+      // dark: will be calculated from palette.secondary.main,
+      contrastText: '#000000',
+    },
+    // error: will use the default color
+  },
+  typography: {
+    fontFamily: '"Roboto", sans-serif',
+    fontSize: 14,
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
+  },
+});
+
+export default function App() {
+
+
+  useEffect(() => {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', configs.primaryColor);
+
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
-
-export default App;
+    <Provider store={store}>
+      <MuiThemeProvider theme={theme}>
+        <div className="app-wrapper">
+          <Routes />
+          <NotificationContainer />
+        </div>
+      </MuiThemeProvider>
+    </Provider>
+  )
+};
