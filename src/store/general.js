@@ -26,27 +26,27 @@ export default (state = initialState, action) => {
   }
 };
 
-export const loading = isloading => ({
+export const loading = (isloading) => ({
   type: SET_LOADING,
   isloading,
 });
 
-export const setMobileOpen = isOpen => ({
+export const setMobileOpen = (isOpen) => ({
   type: SET_MOBILE_OPEN,
   isOpen,
-})
+});
 
 export const changePaymentField = (name, value) => ({
   type: PAYMENT_FIELDS,
-  payload: { name, value }
-})
+  payload: { name, value },
+});
 
 export const focusSearch = (focus) => ({
   type: FOCUS_SEARCH,
-  focus
-})
+  focus,
+});
 
 export const setIsAdmin = (is) => ({
   type: IS_ADMIN,
-  is
-})
+  is,
+});

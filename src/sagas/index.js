@@ -1,13 +1,14 @@
+/* eslint-disable no-unused-vars */
+import { NotificationManager } from 'react-notifications';
+
+import { push } from 'connected-react-router';
 import { delay } from 'redux-saga';
 import {
   takeEvery, put, call, select, all, race,
 } from 'redux-saga/effects';
-import { NotificationManager } from 'react-notifications';
-import { push } from 'connected-react-router';
 
 // Actions
 import * as GeneralActions from '../store/general';
-
 import * as SA from './actions';
 // import * as API from '../services/api';
 
@@ -17,9 +18,14 @@ function* showError(errorMessage) {
     yield NotificationManager.error(errorMessage, 'Erro!', 5000, () => {});
   }
   if (typeof errorMessage === 'object' && errorMessage.message) {
-    yield NotificationManager.error(errorMessage.message, 'Erro!', 5000, () => {});
+    yield NotificationManager.error(
+      errorMessage.message,
+      'Erro!',
+      5000,
+      () => {},
+    );
   }
-  if (typeof errorMessage === 'object' && errorMessage.path) yield put(push(errorMessage.path));
+  if (typeof errorMessage === 'object' && errorMessage.path) { yield put(push(errorMessage.path)); }
 }
 
 function* showErrorNotify(action) {
@@ -29,10 +35,20 @@ function* showErrorNotify(action) {
 
 function* showSuccess(successMessage) {
   if (typeof successMessage === 'string') {
-    yield NotificationManager.success(successMessage, 'Sucesso!', 5000, () => {});
+    yield NotificationManager.success(
+      successMessage,
+      'Sucesso!',
+      5000,
+      () => {},
+    );
   }
   if (typeof successMessage === 'object' && successMessage.message) {
-    yield NotificationManager.success(successMessage.message, 'Sucesso!', 5000, () => {});
+    yield NotificationManager.success(
+      successMessage.message,
+      'Sucesso!',
+      5000,
+      () => {},
+    );
   }
   if (typeof successMessage === 'object' && successMessage.path) {
     yield put(push(successMessage.path));
@@ -45,11 +61,7 @@ function* showSuccessNotify(action) {
 
 // Loading
 function* loading(isloading) {
-  try {
-    yield put(GeneralActions.loading(isloading));
-  } catch (err) {
-    console.log('Error at set loading');
-  }
+  yield put(GeneralActions.loading(isloading));
 }
 
 export default function* root() {

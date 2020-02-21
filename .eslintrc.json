@@ -1,0 +1,53 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "extends": [
+        "airbnb"
+    ],
+    "parser": "babel-eslint",
+    "plugins": ["react", "jsx-a11y", "import", "import-helpers"],
+    "rules": {
+        "global-require": "off",
+        "import/prefer-default-export": "off",
+        "no-unused-expressions": ["error", { "allowTaggedTemplates": true }],
+        "no-multiple-empty-lines": ["error", { "max": 1, "maxBOF": 1}],
+        "react/jsx-filename-extension": [
+            "error",
+            {
+                "extensions": [".js", ".jsx"]
+            }
+        ],
+        "import-helpers/order-imports": [
+            "warn",
+            {
+                "newlinesBetween": "always", // new line between groups
+                "groups": [
+                    "/^react/",
+                    "/^@material-ui/",
+                    "/\bstyles\b/",
+                    "module",
+                    "/^@shared/",
+                    "/^~/",
+                    ["parent", "sibling", "index"]
+                ],
+                "alphabetize": { "order": "asc", "ignoreCase": true }
+            }
+        ],
+        "max-len": [
+            "warn",
+            {
+                "code": 80,
+                "tabWidth": 2,
+                "comments": 80,
+                "ignoreComments": false,
+                "ignoreTrailingComments": true,
+                "ignoreUrls": true,
+                "ignoreStrings": true,
+                "ignoreTemplateLiterals": true,
+                "ignoreRegExpLiterals": true
+            }
+        ]
+    }
+}
