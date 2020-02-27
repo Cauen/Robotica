@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 
 import Container from '@material-ui/core/Container';
@@ -9,27 +10,42 @@ import { QueryParamProvider } from 'use-query-params';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import About from '../pages/About';
+import Login from '../pages/Login';
+import NewPassword from '../pages/NewPassword';
+import NewPlan from '../pages/NewPlan';
 import Search from '../pages/Search';
 import history from './history';
 
 // Pages
 // Components
 
-const Routes = () => (
-  <ConnectedRouter history={history}>
-    <QueryParamProvider ReactRouterRoute={Route}>
-      <Container maxWidth="lg" className="asd">
-        <Header />
-        <Grid item xs={12} className="content">
-          <Switch>
-            <Route exact path="/" component={Search} />
-          </Switch>
-        </Grid>
-        <Footer />
+const Routes = () => {
+  const path = useSelector((state) => state.router.location.pathname);
 
-      </Container>
-    </QueryParamProvider>
-  </ConnectedRouter>
-);
+  return (
+    <ConnectedRouter history={history}>
+      <QueryParamProvider ReactRouterRoute={Route}>
+        <Container
+          className={`${path.replace('/', '').concat('-path')} routes-wrapper `}
+          maxWidth="lg"
+        >
+          <Header />
+          <Grid item xs={12} className="content">
+            <Switch>
+              <Route exact path="/" component={Search} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/new" component={NewPlan} />
+              <Route exact path="/about" component={About} />
+              <Route exact path="/password" component={NewPassword} />
+            </Switch>
+          </Grid>
+          <Footer />
+
+        </Container>
+      </QueryParamProvider>
+    </ConnectedRouter>
+  );
+};
 
 export default Routes;

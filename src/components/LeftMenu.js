@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
@@ -61,6 +62,18 @@ const LeftMenu = () => {
     dispatch(GeneralActions.setMobileOpen(!mobileOpen));
   };
 
+  const useOptions = [
+    { name: 'Buscar', path: '/' },
+    { name: 'Inserir plano de aula', path: '/new' },
+    { name: 'Sobre', path: '/about' },
+  ];
+
+  const options = [
+    { name: 'Login', path: '/login' },
+    { name: 'Registrar', path: '/login' },
+    { name: 'Resgatar senha', path: '/password' },
+  ];
+
   const drawer = (
     <div className="left-menu-component">
       <div className={classes.toolbar}>
@@ -68,24 +81,28 @@ const LeftMenu = () => {
       </div>
       <Divider />
       <List>
-        {['Buscar', 'Inserir Plano de Aula'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
+        {useOptions.map((text, index) => (
+          <Link to={text.path}>
+            <ListItem button key={text.name}>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text.name} />
+            </ListItem>
+          </Link>
         ))}
       </List>
       <Divider />
       <List>
-        {['Login', 'Registrar', 'Resgatar senha'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
+        {options.map((option, index) => (
+          <Link to={option.path}>
+            <ListItem button key={option.name}>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={option.name} />
+            </ListItem>
+          </Link>
         ))}
       </List>
     </div>

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 
 import Container from '@material-ui/core/Container';
@@ -32,11 +33,8 @@ export default function Footer() {
             color="textSecondary"
             component="p"
           >
-                        © 2019-
-            {new Date().getFullYear()}
-            {' '}
-Robótica. Todos os direitos
-                        reservados.
+                        © 2019- {new Date().getFullYear()} Robótica. Todos os
+                        direitos reservados.
           </Typography>
         </Container>
       </footer>
